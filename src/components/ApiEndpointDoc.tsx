@@ -202,7 +202,7 @@ const ApiEndpointDoc: React.FC<ApiEndpointDocProps> = ({
         (apiResponse.status === 401 || apiResponse.status === 403) &&
         !retryAttempted
       ) {
-        let errorData = {};
+        let errorData: any = {}; // Explicitly type errorData
         try {
           if (typeof apiResponse.data === 'string') {
             errorData = JSON.parse(apiResponse.data);
@@ -213,8 +213,7 @@ const ApiEndpointDoc: React.FC<ApiEndpointDocProps> = ({
           console.error('Error parsing error data:', e);
         }
 
-        // @ts-ignore
-        if (errorData?.code === 700) {
+        if (errorData?.code === 700) { // Removed @ts-ignore, should be fine with errorData: any
           setRetryAttempted(true);
           const refreshSuccess = await refreshToken();
           if (refreshSuccess !== false) { // Check for explicit false, as void or true means success or not applicable
