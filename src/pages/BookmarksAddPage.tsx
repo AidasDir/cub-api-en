@@ -23,7 +23,7 @@ const BookmarksAddPage: React.FC<BookmarksAddPageProps> = (props) => {
           type: "object",
           description: "JSON card with required fields:",
           defaultValue:
-            '{"id": "123456789", "title": "Example Movie"}',
+            '{"id": "12345", "title": "Example Movie"}',
           options: [
             "poster_path",
             "overview",
