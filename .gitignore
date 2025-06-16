@@ -1,3 +1,25 @@
+# General
 node_modules/
-node_modules/
-node_modules/
+cub-api-backend/node_modules/
+
+# Build output
+dist/
+.DS_Store
+
+# IDE specific
+.idea/
+.vscode/
+
+# Environment files
+.env
+.env*.local
+
+# Log files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Test files
+coverage/

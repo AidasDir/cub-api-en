@@ -21,11 +21,10 @@ app.use(express.json());
 
 // PostgreSQL Connection Pool
 const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_DATABASE,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT,
+  connectionString: process.env.POSTGRES_URL, // Vercel injects this
+  ssl: {
+    rejectUnauthorized: false // Required for Vercel Postgres, unless you configure specific CA certs
+  }
 });
 
 // Test DB connection
@@ -1155,6 +1154,12 @@ app.post('/api/token/generate', authenticateMagicUser, async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
-}); 
+// Only listen if not running on Vercel (Vercel handles listening)
+// process.env.VERCEL is a system environment variable set by Vercel.
+if (!process.env.VERCEL) {
+  app.listen(port, () => {
+    console.log(`Server listening on PORT: ${port}`);
+  });
+}
+
+module.exports = app;
